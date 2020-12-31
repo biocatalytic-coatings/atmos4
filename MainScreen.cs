@@ -910,8 +910,7 @@ namespace AtMoS3
             {
             }
         }
-<<<<<<< HEAD
-=======
+
 
         private void publishResultsToCloudToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -923,14 +922,10 @@ namespace AtMoS3
             publish2Adafruit();
         }
     }
->>>>>>> AtMoS3.3
 
-        private void publishResultsToCloudToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            backgroundWorker7.RunWorkerAsync();
-        }
 
-    //  AtMoS3.3
+
+    //  atmos4
 
 
         

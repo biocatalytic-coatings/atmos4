@@ -185,11 +185,11 @@
             this.publishResultsToCloudToolStripMenuItem.Name = "publishResultsToCloudToolStripMenuItem";
             this.publishResultsToCloudToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.publishResultsToCloudToolStripMenuItem.Text = "Publish results to cloud";
-<<<<<<< HEAD
-            this.publishResultsToCloudToolStripMenuItem.Click += new System.EventHandler(this.publishResultsToCloudToolStripMenuItem_Click);
-=======
 
->>>>>>> AtMoS3.3
+            this.publishResultsToCloudToolStripMenuItem.Click += new System.EventHandler(this.publishResultsToCloudToolStripMenuItem_Click);
+
+
+
             // 
             // addNOGasToolStripMenuItem
             // 
@@ -973,7 +973,7 @@
             // 
             // backgroundWorker7
             // 
-            this.backgroundWorker7.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker7_DoWork);
+
             // 
             // MainScreen
             // 
