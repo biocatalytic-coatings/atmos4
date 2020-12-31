@@ -473,7 +473,7 @@ namespace AtMoS3
                 stopPump();
 
                 //  Now publish the data to Thingsboard
-                publishData();
+                //publishData();
 
                 //  Write data to datafile
                 write2DataFile();
@@ -571,35 +571,7 @@ namespace AtMoS3
             backgroundWorker1.RunWorkerAsync();
         }
 
-        private void publishData()
-        {
-            //  Lets publish the climate data to Thingsboard just to check and see if the python script works correctly.
-
-            //  Yes...this is working correctly.  All that needs to happen now is to also include the other values of interest 
-            //  such as electrode outputs etc. and move the code to the backgroundworker3() method, after the getGas() method.
-            string python = @"/usr/bin/python";
-            string args2 = string.Format(@"/home/pi/AtMoS3P/publishData.py {0} {1} {2} {3} {4} {5} {6}", lblTemperature.Text, lblHumidity.Text, lblPressure.Text, lblNOWE.Text, lblNOAE.Text, lblNO2WE.Text, lblNO2AE.Text);
-
-            try
-            {
-                Process publish = new Process();
-                ProcessStartInfo publishProcessStartInfo = new ProcessStartInfo
-                {
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true,
-                    FileName = python,
-                    Arguments = args2
-                };
-
-                publish.StartInfo = publishProcessStartInfo;
-                publish.Start();
-                publish.WaitForExit();
-            }
-            catch
-            {
-            }
-        }
+       
 
         private void pulsedSamplingToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -611,60 +583,7 @@ namespace AtMoS3
             backgroundWorker5.RunWorkerAsync();
         }
 
-        private void backgroundWorker4_DoWork(object sender, DoWorkEventArgs e)
-        {
-            /*
-            int count = 0;
-            double sumNOWE = 0;
-            double sumNOAE = 0;
-            double sumNO2WE = 0;
-            double sumNO2AE = 0;
-            double avgNOWE = 0;
-            double avgNOAE = 0;
-            double avgNO2WE = 0;
-            double avgNO2AE = 0;
-            */
-
-            setlblStatusTextSafely("Calculating electrode offsets.");
-            /*
-            startPump();
-            while (true)
-            {
-
-                getGas();
-                sumNOWE += Convert.ToDouble(lblNOWE.Text);
-                sumNOAE += Convert.ToDouble(lblNOAE.Text);
-                sumNO2WE += Convert.ToDouble(lblNO2WE.Text);
-                sumNO2AE += Convert.ToDouble(lblNO2AE.Text);
-
-                avgNOWE = sumNOWE / count;
-                avgNOAE = sumNOAE / count;
-                avgNO2WE = sumNO2WE / count;
-                avgNO2AE = sumNO2AE / count;
-
-                //  Need to fix this as it will throw a cross thread error.
-                txtNOWEOffset.Text = avgNOWE.ToString();
-                txtNOAEOffset.Text = avgNOAE.ToString();
-                txtNO2WEOffset.Text = avgNO2WE.ToString();
-                txtNO2AEOffset.Text = avgNO2AE.ToString();
-
-                if (txtNOWEOffset.InvokeRequired)
-                {
-                    txtNOWEOffset.Invoke(new MethodInvoker(delegate { txtNOWEOffset.Text = avgNOWE.ToString(); }));
-                    txtNOAEOffset.Invoke(new MethodInvoker(delegate { txtNOAEOffset.Text = avgNOAE.ToString(); }));
-                    txtNO2WEOffset.Invoke(new MethodInvoker(delegate { txtNO2WEOffset.Text = avgNO2WE.ToString(); }));
-                    txtNO2AEOffset.Invoke(new MethodInvoker(delegate { txtNO2AEOffset.Text = avgNO2AE.ToString(); }));
-                }
-                else
-                {
-                    txtNOWEOffset.Text = txtNOWEOffset.Text = avgNOWE.ToString();
-                    txtNOAEOffset.Text = txtNOAEOffset.Text = avgNOAE.ToString();
-                    txtNO2WEOffset.Text = txtNO2WEOffset.Text = avgNO2WE.ToString();
-                    txtNO2AEOffset.Text = txtNO2AEOffset.Text = avgNO2AE.ToString();
-                }
-            }
-            */
-        }
+        
 
         private void electrodeOffsetsToolStripMenuItem_Click(object sender, EventArgs e)
         {

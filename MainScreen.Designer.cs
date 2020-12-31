@@ -121,7 +121,6 @@
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tmrAnalysis = new System.Windows.Forms.Timer(this.components);
-            this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker5 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker6 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker7 = new System.ComponentModel.BackgroundWorker();
@@ -185,11 +184,7 @@
             this.publishResultsToCloudToolStripMenuItem.Name = "publishResultsToCloudToolStripMenuItem";
             this.publishResultsToCloudToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.publishResultsToCloudToolStripMenuItem.Text = "Publish results to cloud";
-
             this.publishResultsToCloudToolStripMenuItem.Click += new System.EventHandler(this.publishResultsToCloudToolStripMenuItem_Click);
-
-
-
             // 
             // addNOGasToolStripMenuItem
             // 
@@ -971,10 +966,6 @@
             // 
             this.backgroundWorker6.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker6_DoWork);
             // 
-            // backgroundWorker7
-            // 
-
-            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1096,7 +1087,6 @@
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem electrodeOffsetMeasurementToolStripMenuItem;
-        private System.ComponentModel.BackgroundWorker backgroundWorker4;
         private System.Windows.Forms.ToolStripMenuItem electrodeOffsetsToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker backgroundWorker5;
         private System.ComponentModel.BackgroundWorker backgroundWorker6;
