@@ -744,13 +744,14 @@ namespace AtMoS3
 
         private void backgroundWorker6_DoWork(object sender, DoWorkEventArgs e)
         {
+            stopPump();
             while (true)
             {
                 DateTime finishTimeBW6 = (DateTime.Now).AddMilliseconds(1000);
                 getGas2();
 
                 //publishData();
-                publish2Adafruit();
+                //publish2Adafruit();
                 write2DataFile();
 
                 //This is the loop described above that creates the delay similiar to Thread.Sleep().
@@ -887,7 +888,7 @@ namespace AtMoS3
             //  Yes...this is working correctly.  All that needs to happen now is to also include the other values of interest 
             //  such as electrode outputs etc. and move the code to the backgroundworker3() method, after the getGas() method.
             string python = @"/usr/bin/python";
-            string args3 = string.Format(@"/home/pi/Adafruit_IO_Python/examples/mqtt/publish2Adafruit2.py {0} {1} {2} ", lblTemperature.Text, lblHumidity.Text, lblPressure.Text);
+            string args3 = string.Format(@"/home/pi/Programs/Python/publish2Cloud/publish2Cloud.py {0} {1} {2} {3} {4} {5} {6}", lblTemperature.Text, lblHumidity.Text, lblPressure.Text, lblNOAE.Text, lblNOWE.Text, lblNO2AE.Text, lblNO2WE.Text);
 
             try
             {
@@ -909,9 +910,27 @@ namespace AtMoS3
             {
             }
         }
-    }
+<<<<<<< HEAD
+=======
 
-    //  AtMoS3.4A
+        private void publishResultsToCloudToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            backgroundWorker7.RunWorkerAsync();
+        }
+
+        private void backgroundWorker7_DoWork(object sender, DoWorkEventArgs e)
+        {
+            publish2Adafruit();
+        }
+    }
+>>>>>>> AtMoS3.3
+
+        private void publishResultsToCloudToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            backgroundWorker7.RunWorkerAsync();
+        }
+
+    //  AtMoS3.3
 
 
         

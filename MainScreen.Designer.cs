@@ -124,6 +124,7 @@
             this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker5 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker6 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker7 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -184,6 +185,11 @@
             this.publishResultsToCloudToolStripMenuItem.Name = "publishResultsToCloudToolStripMenuItem";
             this.publishResultsToCloudToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.publishResultsToCloudToolStripMenuItem.Text = "Publish results to cloud";
+<<<<<<< HEAD
+            this.publishResultsToCloudToolStripMenuItem.Click += new System.EventHandler(this.publishResultsToCloudToolStripMenuItem_Click);
+=======
+
+>>>>>>> AtMoS3.3
             // 
             // addNOGasToolStripMenuItem
             // 
@@ -965,6 +971,10 @@
             // 
             this.backgroundWorker6.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker6_DoWork);
             // 
+            // backgroundWorker7
+            // 
+            this.backgroundWorker7.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker7_DoWork);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1101,6 +1111,7 @@
         private System.Windows.Forms.ToolStripMenuItem addNOGasToolStripMenuItem;
         private System.Windows.Forms.TextBox txtGasAdditionCycles;
         private System.Windows.Forms.Label label21;
+        private System.ComponentModel.BackgroundWorker backgroundWorker7;
     }
 }
 
