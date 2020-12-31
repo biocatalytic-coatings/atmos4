@@ -30,18 +30,23 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.V10 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.Version4 = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.V10.SuspendLayout();
+            this.Version4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.V10);
+            this.tabControl1.Controls.Add(this.Version4);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -62,6 +67,16 @@
             this.V10.TabIndex = 0;
             this.V10.Text = "Version 3.0";
             this.V10.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 194);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(251, 39);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Version 3.0.3\r\n    - Add entries to app.config to activate/deactivate\r\n       fun" +
+    "ctions depending on organisation.";
             // 
             // label4
             // 
@@ -103,15 +118,35 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Version 3.0.0\r\n    - Original version.";
             // 
-            // label5
+            // Version4
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 194);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(251, 39);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Version 3.0.3\r\n    - Add entries to app.config to activate/deactivate\r\n       fun" +
-    "ctions depending on organisation.";
+            this.Version4.Controls.Add(this.label7);
+            this.Version4.Controls.Add(this.label6);
+            this.Version4.Location = new System.Drawing.Point(4, 22);
+            this.Version4.Name = "Version4";
+            this.Version4.Size = new System.Drawing.Size(279, 400);
+            this.Version4.TabIndex = 1;
+            this.Version4.Text = "Version 4.0";
+            this.Version4.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(7, 13);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(136, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Development versions.";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 35);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(203, 26);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Version 4.0.0\r\n    - Clone Version 3.4 and clean up code.";
             // 
             // ChangeLog
             // 
@@ -126,6 +161,8 @@
             this.tabControl1.ResumeLayout(false);
             this.V10.ResumeLayout(false);
             this.V10.PerformLayout();
+            this.Version4.ResumeLayout(false);
+            this.Version4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -138,5 +175,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TabPage Version4;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }
