@@ -117,13 +117,13 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tmrGetClimate = new System.Windows.Forms.Timer(this.components);
             this.tmrWrite2File = new System.Windows.Forms.Timer(this.components);
-            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.bwGetSystemTime = new System.ComponentModel.BackgroundWorker();
+            this.bwGetGasPulsed = new System.ComponentModel.BackgroundWorker();
+            this.bwGetClimate = new System.ComponentModel.BackgroundWorker();
             this.tmrAnalysis = new System.Windows.Forms.Timer(this.components);
-            this.backgroundWorker5 = new System.ComponentModel.BackgroundWorker();
-            this.backgroundWorker6 = new System.ComponentModel.BackgroundWorker();
-            this.backgroundWorker7 = new System.ComponentModel.BackgroundWorker();
+            this.bwCalculateElectrodeOffsets = new System.ComponentModel.BackgroundWorker();
+            this.bwGetGasContinuous = new System.ComponentModel.BackgroundWorker();
+            this.bwPublish2Adafruit = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -945,26 +945,22 @@
             this.tmrWrite2File.Interval = 1000;
             this.tmrWrite2File.Tick += new System.EventHandler(this.tmrWrite2File_Tick);
             // 
-            // backgroundWorker2
+            // bwGetSystemTime
             // 
-            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
+            this.bwGetSystemTime.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwGetSystemTime_DoWork);
             // 
-            // backgroundWorker3
+            // bwGetGasPulsed
             // 
-            this.backgroundWorker3.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker3_DoWork);
+            this.bwGetGasPulsed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwGetGasPulsed_DoWork);
             // 
-            // backgroundWorker1
+            // bwGetClimate
             // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.bwGetClimate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwGetClimate_DoWork);
             // 
-            // backgroundWorker5
+            // bwCalculateElectrodeOffsets
             // 
-            this.backgroundWorker5.WorkerSupportsCancellation = true;
-            this.backgroundWorker5.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker5_DoWork);
-            // 
-            // backgroundWorker6
-            // 
-            this.backgroundWorker6.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker6_DoWork);
+            this.bwCalculateElectrodeOffsets.WorkerSupportsCancellation = true;
+            this.bwCalculateElectrodeOffsets.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwCalculateElectrodeOffsets_DoWork);
             // 
             // MainScreen
             // 
@@ -1074,9 +1070,9 @@
         private System.Windows.Forms.ToolStripMenuItem calibrationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startBaselineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stopBaselineToolStripMenuItem;
-        private System.ComponentModel.BackgroundWorker backgroundWorker2;
-        private System.ComponentModel.BackgroundWorker backgroundWorker3;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.ComponentModel.BackgroundWorker bwGetSystemTime;
+        private System.ComponentModel.BackgroundWorker bwGetGasPulsed;
+        private System.ComponentModel.BackgroundWorker bwGetClimate;
         private System.Windows.Forms.Timer tmrAnalysis;
         private System.Windows.Forms.ToolStripMenuItem continuousSamplingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pulsedSamplingToolStripMenuItem;
@@ -1088,8 +1084,8 @@
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem electrodeOffsetMeasurementToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem electrodeOffsetsToolStripMenuItem;
-        private System.ComponentModel.BackgroundWorker backgroundWorker5;
-        private System.ComponentModel.BackgroundWorker backgroundWorker6;
+        private System.ComponentModel.BackgroundWorker bwCalculateElectrodeOffsets;
+        private System.ComponentModel.BackgroundWorker bwGetGasContinuous;
         private System.Windows.Forms.TextBox txtOffsetCalibrationTime;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ToolStripMenuItem publishResultsToCloudToolStripMenuItem;
@@ -1101,7 +1097,7 @@
         private System.Windows.Forms.ToolStripMenuItem addNOGasToolStripMenuItem;
         private System.Windows.Forms.TextBox txtGasAdditionCycles;
         private System.Windows.Forms.Label label21;
-        private System.ComponentModel.BackgroundWorker backgroundWorker7;
+        private System.ComponentModel.BackgroundWorker bwPublish2Adafruit;
     }
 }
 

@@ -39,7 +39,7 @@ namespace AtMoS3
             //blankLabels();
             lblStatus.Text = "Awaiting start.";
             //backgroundWorker1.RunWorkerAsync();
-            backgroundWorker2.RunWorkerAsync();
+            bwGetSystemTime.RunWorkerAsync();
 
             //  We set a version here so that the features of the program can be configured depending on
             //  which organisation is using the program.  The active features are determined by the value 
@@ -247,7 +247,7 @@ namespace AtMoS3
 
         private void autoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            backgroundWorker3.RunWorkerAsync();
+            bwGetGasPulsed.RunWorkerAsync();
         }
 
 
@@ -288,7 +288,7 @@ namespace AtMoS3
             tmrWrite2File.Start();
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void bwGetClimate_DoWork(object sender, DoWorkEventArgs e)
         {
             //  Backgroundworker 1 is used to update the climate information on the form.  The getClimate() method handles
             //  possible "Cross thread operation not valid" errors that may occur when we try to call a Windows form control
@@ -406,7 +406,7 @@ namespace AtMoS3
 
         }
 
-        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        private void bwGetSystemTime_DoWork(object sender, DoWorkEventArgs e)
         {
             //  Backgroundworker 2 is used to update the system time on the form.  System time is used both as a check that the 
             //  program has not been caught in an unresponsive loop but also as the source of the timestamp information for
@@ -432,7 +432,7 @@ namespace AtMoS3
             }
         }
 
-        private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
+        private void bwGetGasPulsed_DoWork(object sender, DoWorkEventArgs e)
         {
             //pumpAuto();
             while (true)
@@ -467,7 +467,7 @@ namespace AtMoS3
                 }
 
                 setlblStatusTextSafely("Analysing chamber atmospheric composition");
-                getGas();
+                getGasPulsed();
 
                 setlblStatusTextSafely("Sleeping...waiting for next cycle");
                 stopPump();
@@ -488,7 +488,7 @@ namespace AtMoS3
 
         }  
 
-        private void getGas()
+        private void getGasPulsed()
         {
             /*  This getGas() method calls a python script that reads electrode values from the South Coast Science
              *  DFE which has an series of Alphasense electrochemical sensors attached to an AFE.
@@ -568,29 +568,29 @@ namespace AtMoS3
 
         private void startToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            backgroundWorker1.RunWorkerAsync();
+            bwGetClimate.RunWorkerAsync();
         }
 
        
 
         private void pulsedSamplingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            backgroundWorker3.RunWorkerAsync();
+            bwGetGasPulsed.RunWorkerAsync();
         }
 
         private void electrodeOffsetMeasurementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            backgroundWorker5.RunWorkerAsync();
+            bwCalculateElectrodeOffsets.RunWorkerAsync();
         }
 
         
 
         private void electrodeOffsetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            backgroundWorker5.RunWorkerAsync();
+            bwCalculateElectrodeOffsets.RunWorkerAsync();
         }
 
-        private void backgroundWorker5_DoWork(object sender, DoWorkEventArgs e)
+        private void bwCalculateElectrodeOffsets_DoWork(object sender, DoWorkEventArgs e)
         {
             int count = 0;
             double sumNOWE = 0;
@@ -610,7 +610,7 @@ namespace AtMoS3
             {
 
                 DateTime finishTimeBW5 = (DateTime.Now).AddMilliseconds(2000);
-                getGas2();
+                getGasContinuous();
                 sumNOWE += Convert.ToDouble(lblNOWE.Text);
                 sumNOAE += Convert.ToDouble(lblNOAE.Text);
                 sumNO2WE += Convert.ToDouble(lblNO2WE.Text);
@@ -658,16 +658,16 @@ namespace AtMoS3
 
         private void continuousSamplingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            backgroundWorker6.RunWorkerAsync();
+            bwGetGasContinuous.RunWorkerAsync();
         }
 
-        private void backgroundWorker6_DoWork(object sender, DoWorkEventArgs e)
+        private void bwGetGasContinuous_DoWork(object sender, DoWorkEventArgs e)
         {
             stopPump();
             while (true)
             {
                 DateTime finishTimeBW6 = (DateTime.Now).AddMilliseconds(1000);
-                getGas2();
+                getGasContinuous();
 
                 //publishData();
                 //publish2Adafruit();
@@ -683,7 +683,7 @@ namespace AtMoS3
   
         }
 
-        private void getGas2()
+        private void getGasContinuous()
         {
             /*  This getGas() method calls a python script that reads electrode values from the South Coast Science
              *  DFE which has an series of Alphasense electrochemical sensors attached to an AFE.
@@ -791,7 +791,7 @@ namespace AtMoS3
 
         private void startBaselineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            backgroundWorker5.RunWorkerAsync();
+            bwCalculateElectrodeOffsets.RunWorkerAsync();
         }
 
         private void stopBaselineToolStripMenuItem_Click(object sender, EventArgs e)
@@ -833,10 +833,10 @@ namespace AtMoS3
 
         private void publishResultsToCloudToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            backgroundWorker7.RunWorkerAsync();
+            bwPublish2Adafruit.RunWorkerAsync();
         }
 
-        private void backgroundWorker7_DoWork(object sender, DoWorkEventArgs e)
+        private void bwPublish2Adafruit_DoWork(object sender, DoWorkEventArgs e)
         {
             publish2Adafruit();
         }
