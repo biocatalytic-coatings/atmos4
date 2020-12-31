@@ -45,8 +45,8 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.V10);
             this.tabControl1.Controls.Add(this.Version4);
+            this.tabControl1.Controls.Add(this.V10);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
