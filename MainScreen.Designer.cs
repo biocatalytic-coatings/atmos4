@@ -105,7 +105,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.GasAddition = new System.Windows.Forms.TabPage();
             this.txtGasAdditionCycles = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.txtElectrodeStabilisationTime = new System.Windows.Forms.TextBox();
@@ -134,7 +134,7 @@
             this.Climate.SuspendLayout();
             this.Volts.SuspendLayout();
             this.Sample.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.GasAddition.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -238,7 +238,7 @@
             this.pulsedSamplingToolStripMenuItem,
             this.electrodeOffsetMeasurementToolStripMenuItem});
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -266,13 +266,13 @@
             // startToolStripMenuItem2
             // 
             this.startToolStripMenuItem2.Name = "startToolStripMenuItem2";
-            this.startToolStripMenuItem2.Size = new System.Drawing.Size(116, 22);
+            this.startToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem2.Text = "Start";
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             // 
             // climateToolStripMenuItem
@@ -281,7 +281,7 @@
             this.startToolStripMenuItem3,
             this.stopToolStripMenuItem2});
             this.climateToolStripMenuItem.Name = "climateToolStripMenuItem";
-            this.climateToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.climateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.climateToolStripMenuItem.Text = "Climate";
             // 
             // startToolStripMenuItem3
@@ -311,28 +311,28 @@
             // startToolStripMenuItem1
             // 
             this.startToolStripMenuItem1.Name = "startToolStripMenuItem1";
-            this.startToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
+            this.startToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem1.Text = "Start";
             this.startToolStripMenuItem1.Click += new System.EventHandler(this.startToolStripMenuItem1_Click);
             // 
             // stopToolStripMenuItem1
             // 
             this.stopToolStripMenuItem1.Name = "stopToolStripMenuItem1";
-            this.stopToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
+            this.stopToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.stopToolStripMenuItem1.Text = "Stop";
             this.stopToolStripMenuItem1.Click += new System.EventHandler(this.stopToolStripMenuItem1_Click);
             // 
             // autoToolStripMenuItem
             // 
             this.autoToolStripMenuItem.Name = "autoToolStripMenuItem";
-            this.autoToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.autoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.autoToolStripMenuItem.Text = "Auto";
             this.autoToolStripMenuItem.Click += new System.EventHandler(this.autoToolStripMenuItem_Click);
             // 
             // electrodeOffsetsToolStripMenuItem
             // 
             this.electrodeOffsetsToolStripMenuItem.Name = "electrodeOffsetsToolStripMenuItem";
-            this.electrodeOffsetsToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.electrodeOffsetsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.electrodeOffsetsToolStripMenuItem.Text = "Electrode Offsets";
             this.electrodeOffsetsToolStripMenuItem.Click += new System.EventHandler(this.electrodeOffsetsToolStripMenuItem_Click);
             // 
@@ -347,7 +347,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -467,7 +467,7 @@
             this.tabControl1.Controls.Add(this.Climate);
             this.tabControl1.Controls.Add(this.Volts);
             this.tabControl1.Controls.Add(this.Sample);
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.GasAddition);
             this.tabControl1.Location = new System.Drawing.Point(7, 19);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -489,7 +489,7 @@
             this.Climate.Location = new System.Drawing.Point(4, 22);
             this.Climate.Name = "Climate";
             this.Climate.Padding = new System.Windows.Forms.Padding(3);
-            this.Climate.Size = new System.Drawing.Size(407, 152);
+            this.Climate.Size = new System.Drawing.Size(407, 167);
             this.Climate.TabIndex = 0;
             this.Climate.Text = "Experiment data";
             this.Climate.UseVisualStyleBackColor = true;
@@ -607,7 +607,7 @@
             this.Volts.Controls.Add(this.label6);
             this.Volts.Location = new System.Drawing.Point(4, 22);
             this.Volts.Name = "Volts";
-            this.Volts.Size = new System.Drawing.Size(407, 152);
+            this.Volts.Size = new System.Drawing.Size(407, 167);
             this.Volts.TabIndex = 3;
             this.Volts.Text = "Electrode readings";
             this.Volts.UseVisualStyleBackColor = true;
@@ -855,20 +855,20 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Sensor purge time (seconds)";
             // 
-            // tabPage1
+            // GasAddition
             // 
-            this.tabPage1.Controls.Add(this.txtGasAdditionCycles);
-            this.tabPage1.Controls.Add(this.label21);
-            this.tabPage1.Controls.Add(this.txtElectrodeStabilisationTime);
-            this.tabPage1.Controls.Add(this.txtGasAdditionTime);
-            this.tabPage1.Controls.Add(this.label20);
-            this.tabPage1.Controls.Add(this.label19);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(407, 152);
-            this.tabPage1.TabIndex = 4;
-            this.tabPage1.Text = "NO Gas Addn.";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.GasAddition.Controls.Add(this.txtGasAdditionCycles);
+            this.GasAddition.Controls.Add(this.label21);
+            this.GasAddition.Controls.Add(this.txtElectrodeStabilisationTime);
+            this.GasAddition.Controls.Add(this.txtGasAdditionTime);
+            this.GasAddition.Controls.Add(this.label20);
+            this.GasAddition.Controls.Add(this.label19);
+            this.GasAddition.Location = new System.Drawing.Point(4, 22);
+            this.GasAddition.Name = "GasAddition";
+            this.GasAddition.Size = new System.Drawing.Size(407, 167);
+            this.GasAddition.TabIndex = 4;
+            this.GasAddition.Text = "NO Gas Addn.";
+            this.GasAddition.UseVisualStyleBackColor = true;
             // 
             // txtGasAdditionCycles
             // 
@@ -1016,8 +1016,8 @@
             this.Volts.PerformLayout();
             this.Sample.ResumeLayout(false);
             this.Sample.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.GasAddition.ResumeLayout(false);
+            this.GasAddition.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -1112,7 +1112,7 @@
         private System.Windows.Forms.TextBox txtOffsetCalibrationTime;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ToolStripMenuItem publishResultsToCloudToolStripMenuItem;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage GasAddition;
         private System.Windows.Forms.TextBox txtElectrodeStabilisationTime;
         private System.Windows.Forms.TextBox txtGasAdditionTime;
         private System.Windows.Forms.Label label20;
