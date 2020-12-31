@@ -839,6 +839,13 @@ namespace AtMoS3
         private void bwPublish2Adafruit_DoWork(object sender, DoWorkEventArgs e)
         {
             publish2Adafruit();
+
+            //  Only publish to Adafruit every 15 seconds to prevent throttling errors on io.adafruit.com
+            DateTime nextPublishTime = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtAdafruitUpdateInterval.Text) * 1000);
+            while (DateTime.Now < nextPublishTime)
+            {
+                //  Create a loop
+            }
         }
     }
 

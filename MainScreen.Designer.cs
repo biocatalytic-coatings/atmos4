@@ -124,6 +124,8 @@
             this.bwCalculateElectrodeOffsets = new System.ComponentModel.BackgroundWorker();
             this.bwGetGasContinuous = new System.ComponentModel.BackgroundWorker();
             this.bwPublish2Adafruit = new System.ComponentModel.BackgroundWorker();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txtAdafruitUpdateInterval = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -455,7 +457,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(8, 255);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(432, 208);
+            this.groupBox2.Size = new System.Drawing.Size(432, 218);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Parameters";
@@ -469,7 +471,7 @@
             this.tabControl1.Location = new System.Drawing.Point(7, 19);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(415, 178);
+            this.tabControl1.Size = new System.Drawing.Size(415, 193);
             this.tabControl1.TabIndex = 0;
             // 
             // Climate
@@ -738,6 +740,8 @@
             // 
             // Sample
             // 
+            this.Sample.Controls.Add(this.txtAdafruitUpdateInterval);
+            this.Sample.Controls.Add(this.label22);
             this.Sample.Controls.Add(this.txtOffsetCalibrationTime);
             this.Sample.Controls.Add(this.label17);
             this.Sample.Controls.Add(this.txtClimateUpdatedInterval);
@@ -750,7 +754,7 @@
             this.Sample.Controls.Add(this.label12);
             this.Sample.Location = new System.Drawing.Point(4, 22);
             this.Sample.Name = "Sample";
-            this.Sample.Size = new System.Drawing.Size(407, 152);
+            this.Sample.Size = new System.Drawing.Size(407, 167);
             this.Sample.TabIndex = 2;
             this.Sample.Text = "Sampling rates";
             this.Sample.UseVisualStyleBackColor = true;
@@ -962,6 +966,25 @@
             this.bwCalculateElectrodeOffsets.WorkerSupportsCancellation = true;
             this.bwCalculateElectrodeOffsets.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwCalculateElectrodeOffsets_DoWork);
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(18, 135);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(199, 13);
+            this.label22.TabIndex = 10;
+            this.label22.Text = "Adafruit update interval (seconds)";
+            // 
+            // txtAdafruitUpdateInterval
+            // 
+            this.txtAdafruitUpdateInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAdafruitUpdateInterval.Location = new System.Drawing.Point(280, 135);
+            this.txtAdafruitUpdateInterval.Name = "txtAdafruitUpdateInterval";
+            this.txtAdafruitUpdateInterval.Size = new System.Drawing.Size(53, 20);
+            this.txtAdafruitUpdateInterval.TabIndex = 11;
+            this.txtAdafruitUpdateInterval.Text = "15";
+            this.txtAdafruitUpdateInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1098,6 +1121,8 @@
         private System.Windows.Forms.TextBox txtGasAdditionCycles;
         private System.Windows.Forms.Label label21;
         private System.ComponentModel.BackgroundWorker bwPublish2Adafruit;
+        private System.Windows.Forms.TextBox txtAdafruitUpdateInterval;
+        private System.Windows.Forms.Label label22;
     }
 }
 
