@@ -453,7 +453,7 @@ namespace AtMoS3
                 //  Thread.Sleep().  The only way to change this is to stop the analysis and restart.
 
                 //DateTime startTimeBW3 = DateTime.Now;
-                DateTime finishTimeBW3 = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 60000);
+                DateTime finishTimeBW3 = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
                 DateTime purgeFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000);
                 //DateTime samplingFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSamplingTime.Text) * 1000);
 
@@ -474,6 +474,7 @@ namespace AtMoS3
 
                 //  Now publish the data to Thingsboard
                 //publishData();
+                publish2Adafruit();
 
                 //  Write data to datafile
                 write2DataFile();
@@ -759,6 +760,7 @@ namespace AtMoS3
             {
                 lblNO2AE.Text = NO2_AE;
             }
+
         }
 
         private void publishElectrodeValues(string objNOWE, string NO_WE, string objNOAE, string NO_AE, string objNO2WE, string NO2_WE, string objNO2AE, string NO2_AE)
@@ -841,7 +843,7 @@ namespace AtMoS3
             publish2Adafruit();
 
             //  Only publish to Adafruit every 15 seconds to prevent throttling errors on io.adafruit.com
-            DateTime nextPublishTime = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtAdafruitUpdateInterval.Text) * 1000);
+            DateTime nextPublishTime = (DateTime.Now).AddMilliseconds(15000);
             while (DateTime.Now < nextPublishTime)
             {
                 //  Create a loop
