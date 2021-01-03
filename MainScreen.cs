@@ -891,11 +891,22 @@ namespace AtMoS3
             deenergiseSolenoid.StartInfo = deenergiseSolenoidStartInfo;
             deenergiseSolenoid.Start();
         }
+
+        private void delayLoop(Int32 delay)
+        {
+            //  Create a delay in the program using the .AddMilliseconds function.  Obtain the delay from various 
+            //  textboxes.
+            DateTime delayFinishTime = (DateTime.Now).AddMilliseconds(delay * 1000);
+            while (DateTime.Now < delayFinishTime)
+            {
+                //  Create a loop
+            }
+        }
     }
 
 
 
-    //  atmos4 - calibration hood solenoid valve code added
+    //  atmos4 - Add delayLoop function too streamline code.
 
 
         
