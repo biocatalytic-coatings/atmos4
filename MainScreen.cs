@@ -458,6 +458,7 @@ namespace AtMoS3
                 //DateTime samplingFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSamplingTime.Text) * 1000);
 
                 setlblStatusTextSafely("Sensor purge cycle started.");
+                openSolenoid();
                 startPump();
                 //  Use the time setting in sampling tab to create purge delay time.
                 //int purgeTime = Convert.ToInt32(txtPurgeTime.Text) * 1000;
@@ -471,6 +472,7 @@ namespace AtMoS3
 
                 setlblStatusTextSafely("Sleeping...waiting for next cycle");
                 stopPump();
+                closeSolenoid();
 
                 //  Now publish the data to Thingsboard
                 //publishData();
@@ -849,11 +851,51 @@ namespace AtMoS3
                 //  Create a loop
             }
         }
+
+        private void openSolenoid()
+        {
+            //  The method calls a python script whose function is to energise the relay connected to the
+            //  calibration hood solenoid valve thereby switching it on.
+            string python = @"/usr/bin/python";
+            string pythonStartPump = @"/home/pi/Programs/Python/solenoidOperation/openSolenoid.py";
+            Process energiseSolenoid = new Process();
+            ProcessStartInfo energiseSolenoidStartInfo = new ProcessStartInfo
+            {
+                UseShellExecute = false,
+                RedirectStandardOutput = false,
+                CreateNoWindow = false,
+                FileName = python,
+                Arguments = pythonStartPump
+            };
+
+            energiseSolenoid.StartInfo = energiseSolenoidStartInfo;
+            energiseSolenoid.Start();
+        }
+
+        private void closeSolenoid()
+        {
+            //  The method calls a python script whose function is to deenergise the relay connected to the
+            //  calibration hood solenoid valve thereby switching it off.
+            string python = @"/usr/bin/python";
+            string pythonStartPump = @"/home/pi/Programs/Python/solenoidOperation/closeSolenoid.py";
+            Process deenergiseSolenoid = new Process();
+            ProcessStartInfo deenergiseSolenoidStartInfo = new ProcessStartInfo
+            {
+                UseShellExecute = false,
+                RedirectStandardOutput = false,
+                CreateNoWindow = false,
+                FileName = python,
+                Arguments = pythonStartPump
+            };
+
+            deenergiseSolenoid.StartInfo = deenergiseSolenoidStartInfo;
+            deenergiseSolenoid.Start();
+        }
     }
 
 
 
-    //  atmos4 - Background worker names updated
+    //  atmos4 - calibration hood solenoid valve code added
 
 
         
