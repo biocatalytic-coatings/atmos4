@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Atmos4.exe" size="55776">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Atmos4.exe" size="56288">
       <assemblyIdentity name="Atmos4" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Nq/znJG5bQC1fzRUA2G1O+IWNg0XrSsP/LOi8SX663I=</dsig:DigestValue>
+        <dsig:DigestValue>iUwd5bFYz00Km6y3oGuXKDwH586mrC1QeZRwpKkPZp8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

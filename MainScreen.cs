@@ -907,7 +907,7 @@ namespace AtMoS3
 
 
 
-    //  atmos4 - Add delayLoop function too streamline code - use in 
+    //  atmos4 - Add delayLoop function too streamline code - use in Publish2Adafruit only at the moment
 
 
         
