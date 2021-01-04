@@ -459,7 +459,7 @@ namespace AtMoS3
 
                 setlblStatusTextSafely("Gas hood solenoid energised.");
                 openSolenoid();
-                DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(2000);
+                DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(1000);
                 setlblStatusTextSafely("Sensor purge cycle started.");
                 while (DateTime.Now < pumpStartDelay)
                 {
@@ -478,7 +478,7 @@ namespace AtMoS3
 
                 setlblStatusTextSafely("Sleeping...waiting for next cycle");
                 stopPump();
-                DateTime pumpStopDelay = (DateTime.Now).AddMilliseconds(2000);
+                DateTime pumpStopDelay = (DateTime.Now).AddMilliseconds(1000);
                 while (DateTime.Now < pumpStopDelay)
                 {
                     //  Create a loop
