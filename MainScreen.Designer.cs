@@ -804,7 +804,7 @@
             this.txtSleepTime.Name = "txtSleepTime";
             this.txtSleepTime.Size = new System.Drawing.Size(53, 20);
             this.txtSleepTime.TabIndex = 5;
-            this.txtSleepTime.Text = "60";
+            this.txtSleepTime.Text = "120";
             this.txtSleepTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtSamplingTime
@@ -825,8 +825,9 @@
             this.txtPurgeTime.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtPurgeTime.Size = new System.Drawing.Size(53, 20);
             this.txtPurgeTime.TabIndex = 3;
-            this.txtPurgeTime.Text = "0";
+            this.txtPurgeTime.Text = "10";
             this.txtPurgeTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPurgeTime.TextChanged += new System.EventHandler(this.txtPurgeTime_TextChanged);
             // 
             // label14
             // 

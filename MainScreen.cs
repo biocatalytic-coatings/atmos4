@@ -913,12 +913,18 @@ namespace AtMoS3
                 //  Create a loop
             }
         }
+
+        private void txtPurgeTime_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
 
     /*  atmos4
      *  
+     *  05/01/2021 1054 - Change pulse sampling purge, measure and sleep times.
      *  04/01/2021 1546 - Remove additional delay in bw3 finishTime.
      *  04/01/2021 1532 - Increase finish times for purge and sampling in getGasPulsed to accoiunt for solenoid delay.
      *  04/01/2021 1238 - Add gas hood solenoid energised advisory...reduce delay to 1 second.
