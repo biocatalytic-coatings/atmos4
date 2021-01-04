@@ -457,9 +457,10 @@ namespace AtMoS3
                 DateTime purgeFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000);
                 //DateTime samplingFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSamplingTime.Text) * 1000);
 
-                setlblStatusTextSafely("Sensor purge cycle started.");
+                setlblStatusTextSafely("Gas hood solenoid energised.");
                 openSolenoid();
                 DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(2000);
+                setlblStatusTextSafely("Sensor purge cycle started.");
                 while (DateTime.Now < pumpStartDelay)
                 {
                     //  Create a loop
@@ -918,7 +919,9 @@ namespace AtMoS3
 
 
     /*  atmos4
-     *  04/0102021 1227 - delayLoop does not work so add directly to getGasPulsed function.
+     *  
+     *  04/01/2021 1238 - Add gas hood solenoid energised advisory...reduce delay to 1 second.
+     *  04/01/2021 1227 - delayLoop does not work so add directly to getGasPulsed function.
      *  04/01/2021 1219 - Use delayLoop in getGasPulsed to create delay between solenoid opening/closing and pump starting/stopping.
      *  
      *  */
