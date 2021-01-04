@@ -845,6 +845,7 @@ namespace AtMoS3
             publish2Adafruit();
 
             //  Only publish to Adafruit every 15 seconds to prevent throttling errors on io.adafruit.com
+            //delayLoop(15);
             DateTime nextPublishTime = (DateTime.Now).AddMilliseconds(15000);
             while (DateTime.Now < nextPublishTime)
             {
@@ -906,7 +907,7 @@ namespace AtMoS3
 
 
 
-    //  atmos4 - Add delayLoop function too streamline code.
+    //  atmos4 - Add delayLoop function too streamline code - use in 
 
 
         
