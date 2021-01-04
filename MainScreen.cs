@@ -459,6 +459,7 @@ namespace AtMoS3
 
                 setlblStatusTextSafely("Sensor purge cycle started.");
                 openSolenoid();
+                delayLoop(2);
                 startPump();
                 //  Use the time setting in sampling tab to create purge delay time.
                 //int purgeTime = Convert.ToInt32(txtPurgeTime.Text) * 1000;
@@ -472,6 +473,7 @@ namespace AtMoS3
 
                 setlblStatusTextSafely("Sleeping...waiting for next cycle");
                 stopPump();
+                delayLoop(2);
                 closeSolenoid();
 
                 //  Now publish the data to Thingsboard
@@ -907,7 +909,10 @@ namespace AtMoS3
 
 
 
-    //  atmos4 - Add delayLoop function too streamline code - use in Publish2Adafruit only at the moment
+    /*  atmos4
+     *  04/01/2021 1219 - Use delayLoop in getGasPulsed to create delay between solenoid opening/closing and pump starting/stopping.
+     *  
+     *  */
 
 
         
