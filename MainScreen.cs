@@ -453,7 +453,7 @@ namespace AtMoS3
                 //  Thread.Sleep().  The only way to change this is to stop the analysis and restart.
 
                 //DateTime startTimeBW3 = DateTime.Now;
-                DateTime finishTimeBW3 = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000 + 2000);
+                DateTime finishTimeBW3 = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
                 DateTime purgeFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000 + 1000);
                 //DateTime samplingFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSamplingTime.Text) * 1000);
 
@@ -919,6 +919,7 @@ namespace AtMoS3
 
     /*  atmos4
      *  
+     *  04/01/2021 1546 - Remove additional delay in bw3 finishTime.
      *  04/01/2021 1532 - Increase finish times for purge and sampling in getGasPulsed to accoiunt for solenoid delay.
      *  04/01/2021 1238 - Add gas hood solenoid energised advisory...reduce delay to 1 second.
      *  04/01/2021 1227 - delayLoop does not work so add directly to getGasPulsed function.
@@ -927,6 +928,6 @@ namespace AtMoS3
      *  */
 
 
-        
-    
+
+
 }
