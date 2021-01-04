@@ -459,7 +459,11 @@ namespace AtMoS3
 
                 setlblStatusTextSafely("Sensor purge cycle started.");
                 openSolenoid();
-                delayLoop(2);
+                DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(2000);
+                while (DateTime.Now < pumpStartDelay)
+                {
+                    //  Create a loop
+                }
                 startPump();
                 //  Use the time setting in sampling tab to create purge delay time.
                 //int purgeTime = Convert.ToInt32(txtPurgeTime.Text) * 1000;
@@ -473,7 +477,11 @@ namespace AtMoS3
 
                 setlblStatusTextSafely("Sleeping...waiting for next cycle");
                 stopPump();
-                delayLoop(2);
+                DateTime pumpStopDelay = (DateTime.Now).AddMilliseconds(2000);
+                while (DateTime.Now < pumpStopDelay)
+                {
+                    //  Create a loop
+                }
                 closeSolenoid();
 
                 //  Now publish the data to Thingsboard
@@ -910,6 +918,7 @@ namespace AtMoS3
 
 
     /*  atmos4
+     *  04/0102021 1227 - delayLoop does not work so add directly to getGasPulsed function.
      *  04/01/2021 1219 - Use delayLoop in getGasPulsed to create delay between solenoid opening/closing and pump starting/stopping.
      *  
      *  */
