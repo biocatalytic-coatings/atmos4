@@ -127,6 +127,9 @@
             this.label22 = new System.Windows.Forms.Label();
             this.txtAdafruitUpdateInterval = new System.Windows.Forms.TextBox();
             this.bwPublishContinuous = new System.ComponentModel.BackgroundWorker();
+            this.continuousToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.pulsedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -184,6 +187,7 @@
             // 
             // publishResultsToCloudToolStripMenuItem
             // 
+            this.publishResultsToCloudToolStripMenuItem.Enabled = false;
             this.publishResultsToCloudToolStripMenuItem.Name = "publishResultsToCloudToolStripMenuItem";
             this.publishResultsToCloudToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.publishResultsToCloudToolStripMenuItem.Text = "Publish results to cloud";
@@ -191,6 +195,7 @@
             // 
             // addNOGasToolStripMenuItem
             // 
+            this.addNOGasToolStripMenuItem.Enabled = false;
             this.addNOGasToolStripMenuItem.Name = "addNOGasToolStripMenuItem";
             this.addNOGasToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.addNOGasToolStripMenuItem.Text = "Add NO Gas";
@@ -225,7 +230,9 @@
             this.startToolStripMenuItem,
             this.startToolStripMenuItem2,
             this.stopToolStripMenuItem,
-            this.climateToolStripMenuItem});
+            this.climateToolStripMenuItem,
+            this.continuousToolStripMenuItem,
+            this.pulsedToolStripMenuItem});
             this.aquisitionToolStripMenuItem.Name = "aquisitionToolStripMenuItem";
             this.aquisitionToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.aquisitionToolStripMenuItem.Text = "Aquisition";
@@ -238,6 +245,7 @@
             this.continuousSamplingToolStripMenuItem,
             this.pulsedSamplingToolStripMenuItem,
             this.electrodeOffsetMeasurementToolStripMenuItem});
+            this.startToolStripMenuItem.Enabled = false;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
             this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem.Text = "Start";
@@ -266,12 +274,14 @@
             // 
             // startToolStripMenuItem2
             // 
+            this.startToolStripMenuItem2.Enabled = false;
             this.startToolStripMenuItem2.Name = "startToolStripMenuItem2";
             this.startToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem2.Text = "Start";
             // 
             // stopToolStripMenuItem
             // 
+            this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
             this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.stopToolStripMenuItem.Text = "Stop";
@@ -297,6 +307,7 @@
             this.stopToolStripMenuItem2.Name = "stopToolStripMenuItem2";
             this.stopToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.stopToolStripMenuItem2.Text = "Stop";
+            this.stopToolStripMenuItem2.Click += new System.EventHandler(this.stopToolStripMenuItem2_Click);
             // 
             // pumpToolStripMenuItem
             // 
@@ -991,6 +1002,24 @@
             // 
             this.bwPublishContinuous.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwPublishContinuous_DoWork);
             // 
+            // continuousToolStripMenuItem
+            // 
+            this.continuousToolStripMenuItem.Name = "continuousToolStripMenuItem";
+            this.continuousToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.continuousToolStripMenuItem.Text = "Continuous";
+            this.continuousToolStripMenuItem.Click += new System.EventHandler(this.continuousToolStripMenuItem_Click);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
+            // pulsedToolStripMenuItem
+            // 
+            this.pulsedToolStripMenuItem.Name = "pulsedToolStripMenuItem";
+            this.pulsedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pulsedToolStripMenuItem.Text = "Pulsed";
+            this.pulsedToolStripMenuItem.Click += new System.EventHandler(this.pulsedToolStripMenuItem_Click);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1130,6 +1159,9 @@
         private System.Windows.Forms.TextBox txtAdafruitUpdateInterval;
         private System.Windows.Forms.Label label22;
         private System.ComponentModel.BackgroundWorker bwPublishContinuous;
+        private System.Windows.Forms.ToolStripMenuItem continuousToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.ToolStripMenuItem pulsedToolStripMenuItem;
     }
 }
 

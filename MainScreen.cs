@@ -676,8 +676,8 @@ namespace AtMoS3
 
         private void bwGetGasContinuous_DoWork(object sender, DoWorkEventArgs e)
         {
-            stopPump();
-            bwPublishContinuous.RunWorkerAsync();
+            //stopPump();
+            //bwPublishContinuous.RunWorkerAsync();
             while (true)
             {
                 DateTime finishTimeBW6 = (DateTime.Now).AddMilliseconds(1000);
@@ -924,7 +924,7 @@ namespace AtMoS3
         {
             while (true)
             {
-                DateTime nextUpdateTime = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtAdafruitUpdateInterval)*1000);
+                DateTime nextUpdateTime = (DateTime.Now).AddMilliseconds(15000);
                 publish2Adafruit();
 
                 //This is the loop that creates the delay similiar to Thread.Sleep().
@@ -935,12 +935,49 @@ namespace AtMoS3
 
             }
         }
+
+        private void continuousToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bwGetClimate.RunWorkerAsync();
+            backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            bwPublishContinuous.RunWorkerAsync();
+            
+            while (true)
+            {
+                DateTime nextMeasurement = (DateTime.Now).AddMilliseconds(1000);
+                getGasContinuous();
+                write2DataFile();
+               
+                //This is the loop described above that creates the delay similiar to Thread.Sleep().
+                while (DateTime.Now < nextMeasurement)
+                {
+                    //  Create a loop
+                }
+            }
+        }
+
+        private void pulsedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bwGetClimate.RunWorkerAsync();
+            bwGetGasPulsed.RunWorkerAsync();
+        }
+
+        private void stopToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            bwGetClimate.CancelAsync();
+            bwGetClimate.Dispose();
+        }
     }
 
 
 
     /*  atmos4
      *  
+     *  05/01/2021 1319 - Corrected Adafruit publish on continuous measurement.
      *  05/01/2021 1126 - Create bw to publish continuous measurements.
      *  05/01/2021 1054 - Change pulse sampling purge, measure and sleep times.
      *  04/01/2021 1546 - Remove additional delay in bw3 finishTime.
