@@ -677,6 +677,7 @@ namespace AtMoS3
         private void bwGetGasContinuous_DoWork(object sender, DoWorkEventArgs e)
         {
             stopPump();
+            bwPublishContinuous.RunWorkerAsync();
             while (true)
             {
                 DateTime finishTimeBW6 = (DateTime.Now).AddMilliseconds(1000);
@@ -918,12 +919,29 @@ namespace AtMoS3
         {
 
         }
+
+        private void bwPublishContinuous_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                DateTime nextUpdateTime = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtAdafruitUpdateInterval)*1000);
+                publish2Adafruit();
+
+                //This is the loop that creates the delay similiar to Thread.Sleep().
+                while (DateTime.Now < nextUpdateTime)
+                {
+                    //  Create a loop
+                }
+
+            }
+        }
     }
 
 
 
     /*  atmos4
      *  
+     *  05/01/2021 1126 - Create bw to publish continuous measurements.
      *  05/01/2021 1054 - Change pulse sampling purge, measure and sleep times.
      *  04/01/2021 1546 - Remove additional delay in bw3 finishTime.
      *  04/01/2021 1532 - Increase finish times for purge and sampling in getGasPulsed to accoiunt for solenoid delay.

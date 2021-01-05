@@ -126,6 +126,7 @@
             this.bwPublish2Adafruit = new System.ComponentModel.BackgroundWorker();
             this.label22 = new System.Windows.Forms.Label();
             this.txtAdafruitUpdateInterval = new System.Windows.Forms.TextBox();
+            this.bwPublishContinuous = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -287,14 +288,14 @@
             // startToolStripMenuItem3
             // 
             this.startToolStripMenuItem3.Name = "startToolStripMenuItem3";
-            this.startToolStripMenuItem3.Size = new System.Drawing.Size(102, 22);
+            this.startToolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem3.Text = "Start";
             this.startToolStripMenuItem3.Click += new System.EventHandler(this.startToolStripMenuItem3_Click);
             // 
             // stopToolStripMenuItem2
             // 
             this.stopToolStripMenuItem2.Name = "stopToolStripMenuItem2";
-            this.stopToolStripMenuItem2.Size = new System.Drawing.Size(102, 22);
+            this.stopToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.stopToolStripMenuItem2.Text = "Stop";
             // 
             // pumpToolStripMenuItem
@@ -986,6 +987,10 @@
             this.txtAdafruitUpdateInterval.Text = "15";
             this.txtAdafruitUpdateInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // bwPublishContinuous
+            // 
+            this.bwPublishContinuous.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwPublishContinuous_DoWork);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1124,6 +1129,7 @@
         private System.ComponentModel.BackgroundWorker bwPublish2Adafruit;
         private System.Windows.Forms.TextBox txtAdafruitUpdateInterval;
         private System.Windows.Forms.Label label22;
+        private System.ComponentModel.BackgroundWorker bwPublishContinuous;
     }
 }
 
