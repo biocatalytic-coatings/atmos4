@@ -388,7 +388,7 @@ namespace AtMoS3
                 setlblStatusTextSafely("Gas hood solenoid energised.");
                 //openSolenoid();
                 string openSolenoid = "openSolenoid";
-                solenoidState(openSolenoid);
+                pumpSolenoid(openSolenoid);
                 DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(1000);
                 setlblStatusTextSafely("Sensor purge cycle started.");
                 while (DateTime.Now < pumpStartDelay)
@@ -414,7 +414,7 @@ namespace AtMoS3
                 }
                 //closeSolenoid();
                 string closeSolenoid = "closeSolenoid";
-                solenoidState(closeSolenoid);
+                pumpSolenoid(closeSolenoid);
 
                 //  Now publish the data to io.adafruit.com
                 publish2Adafruit();
@@ -744,7 +744,7 @@ namespace AtMoS3
             }
         }
 
-        /*  This block of code has now ben replaced by solenoidState()
+        /*  This block of code has now been replaced by pumpSolenoid()
         private void openSolenoid()
         {
             //  The method calls a python script whose function is to energise the relay connected to the
@@ -878,6 +878,8 @@ namespace AtMoS3
             catch
             {
             }
+
+            /*  TO DO - Now change the call for the calibration hood solenoid tom use this function.
         }
 
         private void solenoidState(string fileName)
