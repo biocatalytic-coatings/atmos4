@@ -321,89 +321,42 @@ namespace AtMoS3
 
             string python = @"/usr/bin/python";
             string climate = @"/home/pi/Adafruit_BME280_Library/examples/bme280.py";
-            Process _myProcess = new Process();
-            ProcessStartInfo _myProcessStartInfo = new ProcessStartInfo
-            {
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                CreateNoWindow = false,
-                FileName = python,
-                Arguments = climate
-            };
-
-            _myProcess.StartInfo = _myProcessStartInfo;
-            _myProcess.Start();
-
-            StreamReader _myStreamReader = _myProcess.StandardOutput;
-            string _temp = _myStreamReader.ReadLine();
-
-            //  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".This error occurs when we try to
-            //  call a Windows Forms control from a thread that didn't create that control.  We can pass a text value from the calling 
-            //  function.
-            if (lblTemperature.InvokeRequired)
-            {
-                lblTemperature.Invoke(new MethodInvoker(delegate { lblTemperature.Text = _temp; }));
-            }
-            else
-            {
-                lblTemperature.Text = _temp;
-            }
-
-            string _press = _myStreamReader.ReadLine();
-            if (lblPressure.InvokeRequired)
-            {
-                lblPressure.Invoke(new MethodInvoker(delegate { lblPressure.Text = _press; }));
-            }
-            else
-            {
-                lblPressure.Text = _press;
-            }
-
-            string _humid = _myStreamReader.ReadLine();
-            if (lblHumidity.InvokeRequired)
-            {
-                lblHumidity.Invoke(new MethodInvoker(delegate { lblHumidity.Text = _humid; }));
-            }
-            else
-            {
-                lblHumidity.Text = _humid;
-            }
-
-            //  Lets publish the climate data to Thingsboard just to check and see if the python script works correctly.
-
-            //  Yes...this is working correctly.  All that needs to happen now is to also include the other values of interest 
-            //  such as electrode outputs etc. and move the code to the backgroundworker3() method, after the getGas() method.
-            /*
-            string args2 = string.Format(@"/home/pi/AtMoS3P/publishData.py {0} {1} {2} ", _temp, _humid, _press);
 
             try
             {
-                Process publish = new Process();
-                ProcessStartInfo publishProcessStartInfo = new ProcessStartInfo
+                Process _myProcess = new Process();
+                ProcessStartInfo _myProcessStartInfo = new ProcessStartInfo
                 {
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
-                    CreateNoWindow = true,
+                    CreateNoWindow = false,
                     FileName = python,
-                    Arguments = args2
+                    Arguments = climate
                 };
 
-                publish.StartInfo = publishProcessStartInfo;
-                publish.Start();
-                publish.WaitForExit();
+                _myProcess.StartInfo = _myProcessStartInfo;
+                _myProcess.Start();
+
+                StreamReader _myStreamReader = _myProcess.StandardOutput;
+                string _temp = _myStreamReader.ReadLine();
+                string _press = _myStreamReader.ReadLine();
+                string _humid = _myStreamReader.ReadLine();
+
+                //  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".This error occurs when we try to
+                //  call a Windows Forms control from a thread that didn't create that control.
+                lblTemperature.Invoke(new MethodInvoker(delegate { lblTemperature.Text = _temp; }));
+                lblPressure.Invoke(new MethodInvoker(delegate { lblPressure.Text = _press; }));
+                lblHumidity.Invoke(new MethodInvoker(delegate { lblHumidity.Text = _humid; }));
             }
             catch
-            {
-
+            { 
             }
-            */
-
+                                    
             //This is the loop described above that creates the delay similiar to Thread.Sleep().
             while (DateTime.Now < finishTime)
             {
                 //  Create a loop
             }
-
         }
 
         private void bwGetSystemTime_DoWork(object sender, DoWorkEventArgs e)
@@ -413,23 +366,18 @@ namespace AtMoS3
             //  writing to the datafile.  The timestamp for publishing to the cloud is derived from the called python script
             //
             //  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".This error occurs when we try to
-            //  call a Windows Forms control from a thread that didn't create that control.  We can pass a text value from the calling 
-            //  function.
+            //  call a Windows Forms control from a thread that didn't create that control.  
 
             //  This thread is started at form_load and doesn't have a stop function.
             while (true)
             {
-                if (lblSystemTime.InvokeRequired)
+                DateTime nextSystemTimeUpdate = (DateTime.Now).AddMilliseconds(100);
+                lblSystemTime.Invoke(new MethodInvoker(delegate { lblSystemTime.Text = DateTime.Now.ToString(); }));
+                while (DateTime.Now < nextSystemTimeUpdate)
                 {
-                    lblSystemTime.Invoke(new MethodInvoker(delegate { lblSystemTime.Text = DateTime.Now.ToString(); }));
-                    Thread.Sleep(100);
+                    //  Create a loop
                 }
-                else
-                {
-                    lblSystemTime.Text = DateTime.Now.ToString();
-                    Thread.Sleep(100);
-                }
-            }
+            }            
         }
 
         private void bwGetGasPulsed_DoWork(object sender, DoWorkEventArgs e)
@@ -452,13 +400,13 @@ namespace AtMoS3
                 //  one cycle after the delay is set for the new delay to be active...this is however the same whrn using
                 //  Thread.Sleep().  The only way to change this is to stop the analysis and restart.
 
-                //DateTime startTimeBW3 = DateTime.Now;
                 DateTime finishTimeBW3 = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
                 DateTime purgeFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000 + 1000);
-                //DateTime samplingFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSamplingTime.Text) * 1000);
 
                 setlblStatusTextSafely("Gas hood solenoid energised.");
-                openSolenoid();
+                //openSolenoid();
+                string openSolenoid = "openSolenoid";
+                solenoidState(openSolenoid);
                 DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(1000);
                 setlblStatusTextSafely("Sensor purge cycle started.");
                 while (DateTime.Now < pumpStartDelay)
@@ -482,13 +430,14 @@ namespace AtMoS3
                 {
                     //  Create a loop
                 }
-                closeSolenoid();
+                //closeSolenoid();
+                string closeSolenoid = "closeSolenoid";
+                solenoidState(closeSolenoid);
 
-                //  Now publish the data to Thingsboard
-                //publishData();
+                //  Now publish the data to io.adafruit.com
                 publish2Adafruit();
 
-                //  Write data to datafile
+                //  Write data to datafile on the internal SD card.
                 write2DataFile();
                 
                 //This is the loop described above that creates the delay similiar to Thread.Sleep().
@@ -518,9 +467,10 @@ namespace AtMoS3
             */
             string python = @"/usr/bin/python3";
             string args = string.Format(@"/home/pi/Adafruit_Python_ADS1x15/Gas.py {0}", txtSamplingTime.Text);
-
-            Process getgas = new Process();
-            ProcessStartInfo publishProcessStartInfo = new ProcessStartInfo
+            try
+            {
+                Process getgas = new Process();
+                ProcessStartInfo publishProcessStartInfo = new ProcessStartInfo
                 {
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
@@ -532,51 +482,24 @@ namespace AtMoS3
                 getgas.StartInfo = publishProcessStartInfo;
                 getgas.Start();
                 //getgas.WaitForExit();
-            
-            StreamReader _myStreamReader = getgas.StandardOutput;
-            string NO_WE = _myStreamReader.ReadLine();
 
-            //  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".This error occurs when we try to
-            //  call a Windows Forms control from a thread that didn't create that control.  We can pass a text value from the calling 
-            //  function.
-            if (lblNOWE.InvokeRequired)
-            {
+                StreamReader _myStreamReader = getgas.StandardOutput;
+                string NO_WE = _myStreamReader.ReadLine();
+                string NO_AE = _myStreamReader.ReadLine();
+                string NO2_WE = _myStreamReader.ReadLine();
+                string NO2_AE = _myStreamReader.ReadLine();
+
+                //  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".This error occurs when we try to
+                //  call a Windows Forms control from a thread that didn't create that control.  We can pass a text value from the calling 
+                //  function.
                 lblNOWE.Invoke(new MethodInvoker(delegate { lblNOWE.Text = NO_WE; }));
-            }
-            else
-            {
-                lblNOWE.Text = NO_WE;
-            }
-
-            string NO_AE = _myStreamReader.ReadLine();
-            if (lblNOAE.InvokeRequired)
-            {
                 lblNOAE.Invoke(new MethodInvoker(delegate { lblNOAE.Text = NO_AE; }));
-            }
-            else
-            {
-                lblNOAE.Text = NO_AE;
-            }
-
-            string NO2_WE = _myStreamReader.ReadLine();
-            if (lblNO2WE.InvokeRequired)
-            {
                 lblNO2WE.Invoke(new MethodInvoker(delegate { lblNO2WE.Text = NO2_WE; }));
-            }
-            else
-            {
-                lblNO2WE.Text = NO2_WE;
-            }
-
-            string NO2_AE = _myStreamReader.ReadLine();
-            if (lblNO2AE.InvokeRequired)
-            {
                 lblNO2AE.Invoke(new MethodInvoker(delegate { lblNO2AE.Text = NO2_AE; }));
             }
-            else
-            {
-                lblNO2AE.Text = NO2_AE;
-            }
+            catch 
+            { 
+            }              
         }
 
         private void startToolStripMenuItem3_Click(object sender, EventArgs e)
@@ -712,39 +635,43 @@ namespace AtMoS3
              *  changed to python3, the error disappeared.
              *  
             */
+
             string python = @"/usr/bin/python3";
             string args = @"/home/pi/Adafruit_Python_ADS1x15/Gas2.py";
 
-            Process getgas = new Process();
-            ProcessStartInfo publishProcessStartInfo = new ProcessStartInfo
+            try
             {
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                CreateNoWindow = true,
-                FileName = python,
-                Arguments = args
-            };
+                Process getgas = new Process();
+                ProcessStartInfo publishProcessStartInfo = new ProcessStartInfo
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                    FileName = python,
+                    Arguments = args
+                };
 
-            getgas.StartInfo = publishProcessStartInfo;
-            getgas.Start();
-            //getgas.WaitForExit();
+                getgas.StartInfo = publishProcessStartInfo;
+                getgas.Start();
+                //getgas.WaitForExit();
 
-            StreamReader _myStreamReader = getgas.StandardOutput;
-            string NO_WE = _myStreamReader.ReadLine();
-            string NO_AE = _myStreamReader.ReadLine();
-            string NO2_WE = _myStreamReader.ReadLine();
-            string NO2_AE = _myStreamReader.ReadLine();
+                StreamReader _myStreamReader = getgas.StandardOutput;
+                string NO_WE = _myStreamReader.ReadLine();
+                string NO_AE = _myStreamReader.ReadLine();
+                string NO2_WE = _myStreamReader.ReadLine();
+                string NO2_AE = _myStreamReader.ReadLine();
 
-            /*  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".This error occurs when we try to
-                call a Windows Forms control from a thread that didn't create that control.  
-            */
-            lblNOWE.Invoke(new MethodInvoker(delegate { lblNOWE.Text = NO_WE; }));
-            lblNOAE.Invoke(new MethodInvoker(delegate { lblNOAE.Text = NO_AE; }));
-            lblNO2WE.Invoke(new MethodInvoker(delegate { lblNO2WE.Text = NO2_WE; }));
-            lblNO2AE.Invoke(new MethodInvoker(delegate { lblNO2AE.Text = NO2_AE; }));
+                //  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".This error occurs when we try to
+                //  call a Windows Forms control from a thread that didn't create that control.  
 
-            
-                      
+                lblNOWE.Invoke(new MethodInvoker(delegate { lblNOWE.Text = NO_WE; }));
+                lblNOAE.Invoke(new MethodInvoker(delegate { lblNOAE.Text = NO_AE; }));
+                lblNO2WE.Invoke(new MethodInvoker(delegate { lblNO2WE.Text = NO2_WE; }));
+                lblNO2AE.Invoke(new MethodInvoker(delegate { lblNO2AE.Text = NO2_AE; }));
+            }
+            catch
+            {                
+            }
 
         }
 
@@ -825,10 +752,9 @@ namespace AtMoS3
 
         private void bwPublish2Adafruit_DoWork(object sender, DoWorkEventArgs e)
         {
+            //  Only publish to Adafruit every 15 seconds to prevent throttling errors on io.adafruit.com
             publish2Adafruit();
 
-            //  Only publish to Adafruit every 15 seconds to prevent throttling errors on io.adafruit.com
-            //delayLoop(15);
             DateTime nextPublishTime = (DateTime.Now).AddMilliseconds(15000);
             while (DateTime.Now < nextPublishTime)
             {
@@ -842,18 +768,25 @@ namespace AtMoS3
             //  calibration hood solenoid valve thereby switching it on.
             string python = @"/usr/bin/python";
             string pythonStartPump = @"/home/pi/Programs/Python/solenoidOperation/openSolenoid.py";
-            Process energiseSolenoid = new Process();
-            ProcessStartInfo energiseSolenoidStartInfo = new ProcessStartInfo
-            {
-                UseShellExecute = false,
-                RedirectStandardOutput = false,
-                CreateNoWindow = false,
-                FileName = python,
-                Arguments = pythonStartPump
-            };
 
-            energiseSolenoid.StartInfo = energiseSolenoidStartInfo;
-            energiseSolenoid.Start();
+            try
+            {
+                Process energiseSolenoid = new Process();
+                ProcessStartInfo energiseSolenoidStartInfo = new ProcessStartInfo
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = false,
+                    CreateNoWindow = false,
+                    FileName = python,
+                    Arguments = pythonStartPump
+                };
+
+                energiseSolenoid.StartInfo = energiseSolenoidStartInfo;
+                energiseSolenoid.Start();
+            }
+            catch 
+            { 
+            }            
         }
 
         private void closeSolenoid()
@@ -861,19 +794,54 @@ namespace AtMoS3
             //  The method calls a python script whose function is to deenergise the relay connected to the
             //  calibration hood solenoid valve thereby switching it off.
             string python = @"/usr/bin/python";
-            string pythonStartPump = @"/home/pi/Programs/Python/solenoidOperation/closeSolenoid.py";
-            Process deenergiseSolenoid = new Process();
-            ProcessStartInfo deenergiseSolenoidStartInfo = new ProcessStartInfo
-            {
-                UseShellExecute = false,
-                RedirectStandardOutput = false,
-                CreateNoWindow = false,
-                FileName = python,
-                Arguments = pythonStartPump
-            };
+            string pythonStartPump = @"/home/pi/Programs/Python/solenoidOperation/closeSolenoid.py";            
 
-            deenergiseSolenoid.StartInfo = deenergiseSolenoidStartInfo;
-            deenergiseSolenoid.Start();
+            try
+            {
+                Process deenergiseSolenoid = new Process();
+                ProcessStartInfo deenergiseSolenoidStartInfo = new ProcessStartInfo
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = false,
+                    CreateNoWindow = false,
+                    FileName = python,
+                    Arguments = pythonStartPump
+                };
+
+                deenergiseSolenoid.StartInfo = deenergiseSolenoidStartInfo;
+                deenergiseSolenoid.Start();
+            }
+            catch 
+            { 
+            }       
+        }
+
+        private void solenoidState(string fileName)
+        {
+            /*  The method calls one of two possible python script depending on the required action, whose function is to either 
+             *  energise or deenergise the relay connected to the calibration hood solenoid valve thereby switching it on or off.
+            */
+            string python = @"/usr/bin/python3";
+            string pythonStartPump = @"/home/pi/Programs/Python/solenoidOperation/" + fileName + ".py";
+
+            try
+            {
+                Process solenoidState = new Process();
+                ProcessStartInfo solenoidStateStartInfo = new ProcessStartInfo
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = false,
+                    CreateNoWindow = false,
+                    FileName = python,
+                    Arguments = pythonStartPump
+                };
+
+                solenoidState.StartInfo = solenoidStateStartInfo;
+                solenoidState.Start();
+            }
+            catch
+            {
+            }
         }
 
         private void delayLoop(Int32 delay)
@@ -945,10 +913,15 @@ namespace AtMoS3
         }
     }
 
-
+    /*
+     * THINGS TO DO.
+     * 1. Look at combining the open and close solenoid functions into one and pass the python script file as a variable.
+     * 
+     */
 
     /*  atmos4
      *  
+     *  06/01/2021 2235 - Create single function to open or close the gas hood solenoid valve.
      *  06/01/2021 1819 - Remove all the if statements in the getGasContinuous function as they are not required.
      *  05/01/2021 1319 - Corrected Adafruit publish on continuous measurement.
      *  05/01/2021 1126 - Create bw to publish continuous measurements.
