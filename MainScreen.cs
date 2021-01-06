@@ -869,7 +869,7 @@ namespace AtMoS3
                     RedirectStandardOutput = false,
                     CreateNoWindow = false,
                     FileName = python,
-                    Arguments = relayState
+                    Arguments = relayAction
                 };
 
                 relayState.StartInfo = relayStateStartInfo;
