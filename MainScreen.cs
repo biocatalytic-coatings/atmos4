@@ -731,48 +731,20 @@ namespace AtMoS3
 
             StreamReader _myStreamReader = getgas.StandardOutput;
             string NO_WE = _myStreamReader.ReadLine();
-
-            //  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".This error occurs when we try to
-            //  call a Windows Forms control from a thread that didn't create that control.  We can pass a text value from the calling 
-            //  function.
-            if (lblNOWE.InvokeRequired)
-            {
-                lblNOWE.Invoke(new MethodInvoker(delegate { lblNOWE.Text = NO_WE; }));
-            }
-            else
-            {
-                lblNOWE.Text = NO_WE;
-            }
-
             string NO_AE = _myStreamReader.ReadLine();
-            if (lblNOAE.InvokeRequired)
-            {
-                lblNOAE.Invoke(new MethodInvoker(delegate { lblNOAE.Text = NO_AE; }));
-            }
-            else
-            {
-                lblNOAE.Text = NO_AE;
-            }
-
             string NO2_WE = _myStreamReader.ReadLine();
-            if (lblNO2WE.InvokeRequired)
-            {
-                lblNO2WE.Invoke(new MethodInvoker(delegate { lblNO2WE.Text = NO2_WE; }));
-            }
-            else
-            {
-                lblNO2WE.Text = NO2_WE;
-            }
-
             string NO2_AE = _myStreamReader.ReadLine();
-            if (lblNO2AE.InvokeRequired)
-            {
-                lblNO2AE.Invoke(new MethodInvoker(delegate { lblNO2AE.Text = NO2_AE; }));
-            }
-            else
-            {
-                lblNO2AE.Text = NO2_AE;
-            }
+
+            /*  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".This error occurs when we try to
+                call a Windows Forms control from a thread that didn't create that control.  
+            */
+            lblNOWE.Invoke(new MethodInvoker(delegate { lblNOWE.Text = NO_WE; }));
+            lblNOAE.Invoke(new MethodInvoker(delegate { lblNOAE.Text = NO_AE; }));
+            lblNO2WE.Invoke(new MethodInvoker(delegate { lblNO2WE.Text = NO2_WE; }));
+            lblNO2AE.Invoke(new MethodInvoker(delegate { lblNO2AE.Text = NO2_AE; }));
+
+            
+                      
 
         }
 
@@ -977,11 +949,12 @@ namespace AtMoS3
 
     /*  atmos4
      *  
+     *  06/01/2021 1819 - Remove all the if statements in the getGasContinuous function as they are not required.
      *  05/01/2021 1319 - Corrected Adafruit publish on continuous measurement.
      *  05/01/2021 1126 - Create bw to publish continuous measurements.
      *  05/01/2021 1054 - Change pulse sampling purge, measure and sleep times.
      *  04/01/2021 1546 - Remove additional delay in bw3 finishTime.
-     *  04/01/2021 1532 - Increase finish times for purge and sampling in getGasPulsed to accoiunt for solenoid delay.
+     *  04/01/2021 1532 - Increase finish times for purge and sampling in getGasPulsed to account for solenoid delay.
      *  04/01/2021 1238 - Add gas hood solenoid energised advisory...reduce delay to 1 second.
      *  04/01/2021 1227 - delayLoop does not work so add directly to getGasPulsed function.
      *  04/01/2021 1219 - Use delayLoop in getGasPulsed to create delay between solenoid opening/closing and pump starting/stopping.
