@@ -762,6 +762,7 @@ namespace AtMoS3
             }
         }
 
+        /*  This block of code has now ben replaced by solenoidState()
         private void openSolenoid()
         {
             //  The method calls a python script whose function is to energise the relay connected to the
@@ -815,6 +816,7 @@ namespace AtMoS3
             { 
             }       
         }
+        */
 
         private void solenoidState(string fileName)
         {
@@ -915,7 +917,9 @@ namespace AtMoS3
 
     /*
      * THINGS TO DO.
-     * 1. Look at combining the open and close solenoid functions into one and pass the python script file as a variable.
+     * 
+     * Look at combining the startPump() and stopPump() functions into one and pass the python script file as a variable
+     * Look at combining the openSolenoid() and closeSolenoid() functions into one and pass the python script file as a variable --- COMPLETE
      * 
      */
 
