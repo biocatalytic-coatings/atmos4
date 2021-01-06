@@ -194,25 +194,7 @@ namespace AtMoS3
 
         }
 
-        private void startPump()
-        {
-            //  The method calls a python script whose function is to energise the relay connected to the
-            //  usb pump thereby switching it on.
-            string python = @"/usr/bin/python";
-            string pythonStartPump = @"/home/pi/Programs/Python/pumpSwitching/switchON.py";
-            Process _myProcess = new Process();
-            ProcessStartInfo _myProcessStartInfo = new ProcessStartInfo
-            {
-                UseShellExecute = false,
-                RedirectStandardOutput = false,
-                CreateNoWindow = false,
-                FileName = python,
-                Arguments = pythonStartPump
-            };
 
-            _myProcess.StartInfo = _myProcessStartInfo;
-            _myProcess.Start();
-        }
 
 
         private void startToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -818,6 +800,86 @@ namespace AtMoS3
         }
         */
 
+        private void startPump()
+        {
+            //  The method calls a python script whose function is to energise the relay connected to the
+            //  usb pump thereby switching it on.
+            string python = @"/usr/bin/python";
+            string pythonStartPump = @"/home/pi/Programs/Python/pumpSwitching/switchON.py";
+            Process _myProcess = new Process();
+            ProcessStartInfo _myProcessStartInfo = new ProcessStartInfo
+            {
+                UseShellExecute = false,
+                RedirectStandardOutput = false,
+                CreateNoWindow = false,
+                FileName = python,
+                Arguments = pythonStartPump
+            };
+
+            _myProcess.StartInfo = _myProcessStartInfo;
+            _myProcess.Start();
+        }
+
+        private void pumpSolenoid(string fileName)
+        {
+            /*  The method calls one of two possible python script depending on the required action, whose function is to either 
+             *  energise or deenergise the relay connected to the usb air pump solenoid valve thereby switching it on or off.
+            */
+            string python = @"/usr/bin/python3";
+            string relayAction = @"/home/pi/Programs/pythonScripts/" + fileName + ".py";
+
+            try
+            {
+                Process solenoidState = new Process();
+                ProcessStartInfo solenoidStateStartInfo = new ProcessStartInfo
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = false,
+                    CreateNoWindow = false,
+                    FileName = python,
+                    Arguments = relayAction
+                };
+
+                solenoidState.StartInfo = solenoidStateStartInfo;
+                solenoidState.Start();
+            }
+            catch
+            {
+            }
+        }
+
+        private void relayAction(string fileName)
+        {
+            /*  This function is currently under development.  It's purpose is to combine all the other functions that call python 
+             *  scripts into one main piece of code.
+            */
+
+            /*  Define where the python complier is located and which script we are going to run.  All the scripts needed for the 
+             *  operation of the program are now stored in the /home/pi/Programs/pythonScripts/ folder.
+            */
+            string python = @"/usr/bin/python3";
+            string relayAction = @"/home/pi/Programs/pythonScripts/" + fileName + ".py";
+
+            try
+            {
+                Process relayState = new Process();
+                ProcessStartInfo relayStateStartInfo = new ProcessStartInfo
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = false,
+                    CreateNoWindow = false,
+                    FileName = python,
+                    Arguments = relayState
+                };
+
+                relayState.StartInfo = relayStateStartInfo;
+                relayState.Start();
+            }
+            catch
+            {
+            }
+        }
+
         private void solenoidState(string fileName)
         {
             /*  The method calls one of two possible python script depending on the required action, whose function is to either 
@@ -918,13 +980,16 @@ namespace AtMoS3
     /*
      * THINGS TO DO.
      * 
-     * Look at combining the startPump() and stopPump() functions into one and pass the python script file as a variable
+     * Look at combining all the relay operations into one function and pass the filename, pin number and state as variables.
+     * Change "pythonstartpump" to "changeState" in solenoidState().
+     * Look at combining the startPump() and stopPump() functions into one and pass the python script file as a variable.
      * Look at combining the openSolenoid() and closeSolenoid() functions into one and pass the python script file as a variable --- COMPLETE
      * 
      */
 
     /*  atmos4
      *  
+     *  07/01/2021 0000 - Create relayAction function to manage all python script calls.
      *  06/01/2021 2235 - Create single function to open or close the gas hood solenoid valve.
      *  06/01/2021 1819 - Remove all the if statements in the getGasContinuous function as they are not required.
      *  05/01/2021 1319 - Corrected Adafruit publish on continuous measurement.
