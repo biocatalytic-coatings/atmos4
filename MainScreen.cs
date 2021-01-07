@@ -367,10 +367,10 @@ namespace AtMoS3
             //pumpAuto();
             while (true)
             {
-                //  Backgroundworker 3 is used to do pulse measurement of the chamber atmosphere.  We start by opening
+                //  This backgroundworker is used to do pulse measurement of the chamber atmosphere.  We start by opening
                 //  the solenoid valve attached to the sensor system exit line and start the pump.  We purge the  
                 //  sensor system for a timeperiod determined by the value of txtPurgeTime.  At the end of that 
-                //  time, we call the getGas() method to do the actual analysis.  The pump continues for a short time 
+                //  time, we call the gas.py script to do the actual analysis.  The pump continues for a short time 
                 //  after the end of the analysis cycle.  We then stop the pump, close the solenoid and put the 
                 //  system to sleep.
                 //  
@@ -386,16 +386,21 @@ namespace AtMoS3
                 DateTime purgeFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000 + 1000);
 
                 setlblStatusTextSafely("Gas hood solenoid energised.");
-                //openSolenoid();
-                string openSolenoid = "openSolenoid";
-                pumpSolenoid(openSolenoid);
+              
+                // Energise and open the usb pump solenoid valve.
+                string openSolenoid = "Programs/pythonScripts/relayState";
+                runPythonScript(openSolenoid, 26, 0, "1");
+
                 DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(1000);
                 setlblStatusTextSafely("Sensor purge cycle started.");
                 while (DateTime.Now < pumpStartDelay)
                 {
                     //  Create a loop
                 }
-                startPump();
+
+                // Start the usb pump
+                string startPump = "Programs/pythonScripts/relayState";
+                runPythonScript(startPump, 4, 0, "1"); 
 
                 while (DateTime.Now < purgeFinish)
                 {
@@ -405,16 +410,29 @@ namespace AtMoS3
                 setlblStatusTextSafely("Analysing chamber atmospheric composition");
                 getGasPulsed();
 
+                /*  I'd like that have the getGas pscript run from here as as well but there appears
+                 *  to be a problem with the ADS1x15.py program when we try to do this.
+                 */
+                   
+                // Start the getGas.py program
+                //string getGas = "Adafruit_Python_ADS1x15/Gas";
+                //string samplingTime = txtSamplingTime.Text;
+                //runPythonScript(getGas, 5, 1, txtSamplingTime.Text);
+
                 setlblStatusTextSafely("Sleeping...waiting for next cycle");
-                stopPump();
+
+                // Stop the usb pump
+                string stopPump = "Programs/pythonScripts/relayState";
+                runPythonScript(stopPump, 4, 1, "1");
                 DateTime pumpStopDelay = (DateTime.Now).AddMilliseconds(1000);
                 while (DateTime.Now < pumpStopDelay)
                 {
                     //  Create a loop
                 }
-                //closeSolenoid();
-                string closeSolenoid = "closeSolenoid";
-                pumpSolenoid(closeSolenoid);
+   
+                // De-energise and close the usb pump solenoid valve.
+                string closeSolenoid = "Programs/pythonScripts/relayState";
+                runPythonScript(closeSolenoid, 26, 1, "1");
 
                 //  Now publish the data to io.adafruit.com
                 publish2Adafruit();
@@ -448,7 +466,7 @@ namespace AtMoS3
              *  
             */
             string python = @"/usr/bin/python3";
-            string args = string.Format(@"/home/pi/Adafruit_Python_ADS1x15/Gas.py {0}", txtSamplingTime.Text);
+            string args = string.Format(@"/home/pi/Adafruit_Python_ADS1x15/Gas.py {0} ", txtSamplingTime.Text);
             try
             {
                 Process getgas = new Process();
@@ -848,38 +866,67 @@ namespace AtMoS3
             }
         }
 
-        private void relayAction(string fileName)
+        private void runPythonScript(string fileName, int myPin, int gpioState, string samplingTime)
         {
             /*  This function is currently under development.  It's purpose is to combine all the other functions that call python 
-             *  scripts into one main piece of code.
+             *  scripts to energise or deenergise relays into one main piece of code.
             */
 
             /*  Define where the python complier is located and which script we are going to run.  All the scripts needed for the 
              *  operation of the program are now stored in the /home/pi/Programs/pythonScripts/ folder.
             */
-            string python = @"/usr/bin/python3";
-            string relayAction = @"/home/pi/Programs/pythonScripts/" + fileName + ".py";
+            string python = @"/usr/bin/python";
+            string runPythonScript = string.Format(@"/home/pi/" + fileName + ".py {0} {1} {2} {3}", fileName, myPin, gpioState, samplingTime);
 
             try
             {
-                Process relayState = new Process();
-                ProcessStartInfo relayStateStartInfo = new ProcessStartInfo
+                Process pythonScript = new Process();
+                ProcessStartInfo pythonScriptStartInfo = new ProcessStartInfo
                 {
                     UseShellExecute = false,
-                    RedirectStandardOutput = false,
-                    CreateNoWindow = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
                     FileName = python,
-                    Arguments = relayAction
+                    Arguments = runPythonScript
                 };
 
-                relayState.StartInfo = relayStateStartInfo;
-                relayState.Start();
+                pythonScript.StartInfo = pythonScriptStartInfo;
+                pythonScript.Start();
+
+                switch (fileName)
+                {
+                    case ("getGas"):
+                        StreamReader _myStreamReader = pythonScript.StandardOutput;
+                        string NO_WE = _myStreamReader.ReadLine();
+                        string NO_AE = _myStreamReader.ReadLine();
+                        string NO2_WE = _myStreamReader.ReadLine();
+                        string NO2_AE = _myStreamReader.ReadLine();
+
+
+                        lblNOWE.Invoke(new MethodInvoker(delegate { lblNOWE.Text = NO_WE; }));
+                        lblNOAE.Invoke(new MethodInvoker(delegate { lblNOAE.Text = NO_AE; }));
+                        lblNO2WE.Invoke(new MethodInvoker(delegate { lblNO2WE.Text = NO2_WE; }));
+                        lblNO2AE.Invoke(new MethodInvoker(delegate { lblNO2AE.Text = NO2_AE; }));
+                        break;
+                    case ("getClimate"):
+                        StreamReader _myStreamReader2 = pythonScript.StandardOutput;
+                        string _temp = _myStreamReader2.ReadLine();
+                        string _press = _myStreamReader2.ReadLine();
+                        string _humid = _myStreamReader2.ReadLine();
+
+                        lblTemperature.Invoke(new MethodInvoker(delegate { lblTemperature.Text = _temp; }));
+                        lblPressure.Invoke(new MethodInvoker(delegate { lblPressure.Text = _press; }));
+                        lblHumidity.Invoke(new MethodInvoker(delegate { lblHumidity.Text = _humid; }));
+                        break;
+                    default:
+                        break;
+                }
             }
             catch
             {
             }
-
-            /*  TO DO - Now change the call for the calibration hood solenoid tom use this function.
+           
+            //  TO DO - Now change the call for the calibration hood solenoid tom use this function.
         }
 
         private void solenoidState(string fileName)
@@ -976,6 +1023,17 @@ namespace AtMoS3
         {
             bwGetClimate.CancelAsync();
             bwGetClimate.Dispose();
+        }
+
+        private void newPulsedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string fileName = "getGas";
+            bwGetGasPulsed.RunWorkerAsync();
+        }
+
+        private void txtSleepTime_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

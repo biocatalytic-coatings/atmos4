@@ -130,6 +130,7 @@
             this.continuousToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pulsedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newPulsedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -232,7 +233,8 @@
             this.stopToolStripMenuItem,
             this.climateToolStripMenuItem,
             this.continuousToolStripMenuItem,
-            this.pulsedToolStripMenuItem});
+            this.pulsedToolStripMenuItem,
+            this.newPulsedToolStripMenuItem});
             this.aquisitionToolStripMenuItem.Name = "aquisitionToolStripMenuItem";
             this.aquisitionToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.aquisitionToolStripMenuItem.Text = "Aquisition";
@@ -816,8 +818,9 @@
             this.txtSleepTime.Name = "txtSleepTime";
             this.txtSleepTime.Size = new System.Drawing.Size(53, 20);
             this.txtSleepTime.TabIndex = 5;
-            this.txtSleepTime.Text = "120";
+            this.txtSleepTime.Text = "30";
             this.txtSleepTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSleepTime.TextChanged += new System.EventHandler(this.txtSleepTime_TextChanged);
             // 
             // txtSamplingTime
             // 
@@ -826,7 +829,7 @@
             this.txtSamplingTime.Name = "txtSamplingTime";
             this.txtSamplingTime.Size = new System.Drawing.Size(53, 20);
             this.txtSamplingTime.TabIndex = 4;
-            this.txtSamplingTime.Text = "60";
+            this.txtSamplingTime.Text = "10";
             this.txtSamplingTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtPurgeTime
@@ -837,7 +840,7 @@
             this.txtPurgeTime.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtPurgeTime.Size = new System.Drawing.Size(53, 20);
             this.txtPurgeTime.TabIndex = 3;
-            this.txtPurgeTime.Text = "10";
+            this.txtPurgeTime.Text = "5";
             this.txtPurgeTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPurgeTime.TextChanged += new System.EventHandler(this.txtPurgeTime_TextChanged);
             // 
@@ -1020,6 +1023,13 @@
             this.pulsedToolStripMenuItem.Text = "Pulsed";
             this.pulsedToolStripMenuItem.Click += new System.EventHandler(this.pulsedToolStripMenuItem_Click);
             // 
+            // newPulsedToolStripMenuItem
+            // 
+            this.newPulsedToolStripMenuItem.Name = "newPulsedToolStripMenuItem";
+            this.newPulsedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newPulsedToolStripMenuItem.Text = "New Pulsed";
+            this.newPulsedToolStripMenuItem.Click += new System.EventHandler(this.newPulsedToolStripMenuItem_Click);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1162,6 +1172,7 @@
         private System.Windows.Forms.ToolStripMenuItem continuousToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripMenuItem pulsedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newPulsedToolStripMenuItem;
     }
 }
 
