@@ -278,13 +278,21 @@ namespace AtMoS3
 
         private void bwGetClimate_DoWork(object sender, DoWorkEventArgs e)
         {
-            //  Backgroundworker 1 is used to update the climate information on the form.  The getClimate() method handles
-            //  possible "Cross thread operation not valid" errors that may occur when we try to call a Windows form control
-            //  from a thread that didn't create that control.
+            /*  bwGetClimate is used to update the climate information on the form.  This is now handled by the bwgetClimate_DoWork
+             *  function using the runPythonScript() function rather than the previous dedicated getClimate(). 
+             *  This thread is started at form_load and doesn't have a stop function.
+             *  */
 
-            //  This thread is started at form_load and doesn't have a stop function.
             while (true)
-                getClimate();
+            {
+                //getClimate();
+                setlblStatusTextSafely("Running continuous chamber atmospheric analysis.");
+                string myProgram = "Adafruit_BME280_Library/examples/mybme280";
+                string programType = "climate";
+                runPythonScript(myProgram, 4, 0, "1", programType);
+                Thread.Sleep(1000);
+            }
+                
         }
 
         private void getClimate()
@@ -304,6 +312,9 @@ namespace AtMoS3
             //  the getClimate() method every second.  This value can be changed in the Parameters > Sampling Rates
             //  tab control if this tab is active for the organisation.
 
+            /*
+             *  This section of code has now been replaced by runPythonScript().
+             *  
             int delayTime = Convert.ToInt32(txtClimateUpdatedInterval.Text) * 1000;
             DateTime finishTime = (DateTime.Now).AddMilliseconds(delayTime);
 
@@ -345,6 +356,7 @@ namespace AtMoS3
             {
                 //  Create a loop
             }
+            */
         }
 
         private void bwGetSystemTime_DoWork(object sender, DoWorkEventArgs e)
@@ -954,8 +966,8 @@ namespace AtMoS3
             /*  Define where the python complier is located and which script we are going to run.  All the scripts needed for the 
              *  operation of the program are now stored in the /home/pi/Programs/pythonScripts/ folder.
             */
-            string python = @"/usr/bin/python";
-            string runPythonScript = string.Format(@"/home/pi/" + fileName + ".py {0} {1} {2} {3}", fileName, myPin, gpioState, samplingTime);
+            string python = @"/usr/bin/python3";
+            string runPythonScript = string.Format(@"/home/pi/" + fileName + ".py {0} {1} {2} {3} {4}", fileName, myPin, gpioState, samplingTime, programType);
 
             try
             {
@@ -972,9 +984,9 @@ namespace AtMoS3
                 pythonScript.StartInfo = pythonScriptStartInfo;
                 pythonScript.Start();
 
-                switch (fileName)
+                switch (programType)
                 {
-                    case ("getGas"):
+                    case ("gas"):
                         StreamReader _myStreamReader = pythonScript.StandardOutput;
                         string NO_WE = _myStreamReader.ReadLine();
                         string NO_AE = _myStreamReader.ReadLine();
@@ -987,7 +999,7 @@ namespace AtMoS3
                         lblNO2WE.Invoke(new MethodInvoker(delegate { lblNO2WE.Text = NO2_WE; }));
                         lblNO2AE.Invoke(new MethodInvoker(delegate { lblNO2AE.Text = NO2_AE; }));
                         break;
-                    case ("getClimate"):
+                    case ("climate"):
                         StreamReader _myStreamReader2 = pythonScript.StandardOutput;
                         string _temp = _myStreamReader2.ReadLine();
                         string _press = _myStreamReader2.ReadLine();

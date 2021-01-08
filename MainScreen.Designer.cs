@@ -300,7 +300,6 @@
             this.climateToolStripMenuItem.Name = "climateToolStripMenuItem";
             this.climateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.climateToolStripMenuItem.Text = "Climate";
-            this.climateToolStripMenuItem.Visible = false;
             // 
             // startToolStripMenuItem3
             // 
